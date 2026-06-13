@@ -1,0 +1,25 @@
+# Unity generated files
+Library/
+Temp/
+Obj/
+Build/
+Builds/
+Logs/
+UserSettings/
+.vs/
+.vscode/
+
+# Unity project files not included in public summary
+*.csproj
+*.sln
+*.slnx
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Private/local data
+*.log
+*.tmp
+*.user
+
