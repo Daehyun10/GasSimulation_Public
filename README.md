@@ -42,7 +42,7 @@ P_real ≈ ΣJ / (AΔt)
 | 실제 압력 근사 | `P_real≈ΣJ/(AΔt)` | 벽 충돌 충격량으로 실제 압력 근사 |
 | 오차율 | `Error=|P_ideal-P_real|/P_ideal×100` | 이상기체와 실제 기체의 차이 |
 
-그래프는 함수식 자체보다 **CSV 데이터를 이용한 선그래프**가 더 설득력 있습니다.
+그래프는 함수식 자체보다 **CSV 데이터를 이용한 선그래프**
 
 추천 그래프:
 
@@ -82,18 +82,6 @@ time,temperature,volume,p_ideal,p_real,error_percent,liquid_count
 | `error_percent` | 두 압력의 오차율 |
 | `liquid_count` | 액화된 분자 수 |
 
-## 보고서에 넣을 이미지
-
-이미지는 직접 실행 화면을 캡처해서 `assets/screenshots/` 폴더에 넣으면 됩니다.
-
-추천 이미지:
-
-1. Unity Hierarchy 화면
-2. 고온 조건 시뮬레이션 화면
-3. 저온 조건 액화 화면
-4. CSV 파일 또는 압력 비교 그래프
-
-자세한 캡처 안내는 [assets/screenshots/README.md](assets/screenshots/README.md)를 참고하세요.
 
 ## 공개 범위
 
@@ -104,5 +92,4 @@ time,temperature,volume,p_ideal,p_real,error_percent,liquid_count
 - 개인 PC 경로
 - Unity Library/Temp/Logs 캐시
 
-탐구 설명과 공개 가능한 보고서 자료만 포함했습니다.
 
