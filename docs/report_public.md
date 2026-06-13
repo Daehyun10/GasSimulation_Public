@@ -1,48 +1,69 @@
-# 화학 II 주제 발표 보고서 공개용 요약
+# Public Research Summary
 
-## 1. 발표 제목
+## Title
 
-Unity 3D 기체 분자 운동 시뮬레이션을 통한 이상기체 상태방정식 `PV=nRT`와 실제 기체 액화 현상의 비교
+Comparing the Ideal Gas Law and Real Gas Liquefaction Using a Unity 3D Particle Simulation
 
-## 2. 탐구 동기
+## Motivation
 
-화학 II에서 이상기체 상태방정식은 기체의 압력, 부피, 온도, 몰수 사이의 관계를 설명하는 중요한 식이다. 그러나 실제 기체는 모든 조건에서 이상기체처럼 행동하지 않는다. 특히 온도가 낮아지면 분자 운동이 느려지고, 분자 사이의 인력이 상대적으로 커져 액화가 일어날 수 있다.
+The ideal gas law, `PV = nRT`, explains the relationship between pressure, volume, amount of gas, and temperature. However, real gases do not always follow ideal behavior. In low-temperature conditions, molecular motion slows down and intermolecular attraction becomes more significant. Under such conditions, real gases may begin to liquefy.
 
-이 차이를 단순히 말로 설명하는 것보다, 3D 시뮬레이션으로 분자 운동과 벽 충돌을 직접 관찰하면 더 잘 이해할 수 있다고 생각했다. 그래서 Unity를 이용해 기체 분자가 용기 안에서 움직이고, 온도 변화에 따라 이상기체 압력과 실제 압력 근사값이 어떻게 달라지는지 비교하였다.
+This project was designed to visualize that difference. Instead of only explaining the concept with formulas, the simulation shows gas particles moving inside a container, colliding with walls, and changing behavior when the temperature becomes low.
 
-## 3. 탐구 내용
+## Simulation Design
 
-3D 공간에 6개의 Cube로 이루어진 밀폐 용기를 만들고, 그 안에 80개의 Sphere 기체 분자를 생성하였다. 각 분자는 Rigidbody를 가지고 있으며, 중력은 꺼 두어 기체 상태에서 자유롭게 움직이게 하였다.
+The simulation uses a closed 3D container made from six wall objects. Gas particles are represented as spheres with physics components. Their motion is controlled so that particle speed changes according to temperature.
 
-분자의 속도는 온도에 따라 변하도록 설정하였다. 기체 분자의 평균 운동 에너지는 절대온도에 비례하므로 대표 속도는 `sqrt(T)`에 비례한다. 따라서 온도가 높아지면 분자는 더 빠르게 움직이고, 온도가 낮아지면 더 느리게 움직인다.
+The key temperature-speed relationship is:
 
-이상기체 압력은 다음 식으로 계산하였다.
+```text
+v(T) = v0 * sqrt(T / T0)
+```
+
+This is based on the idea that the average kinetic energy of gas particles is proportional to absolute temperature.
+
+## Pressure Model
+
+The ideal pressure is calculated using:
 
 ```text
 P_ideal = nRT / V
 ```
 
-실제 압력은 분자가 벽에 부딪힐 때의 충격량을 이용해 근사하였다.
+The real pressure is approximated from wall-collision impulse:
 
 ```text
-P_real ≈ ΣJ / (AΔt)
+P_real ~= sum(J) / (A * delta_t)
 ```
 
-여기서 `J`는 충격량, `A`는 용기 표면적, `Δt`는 측정 시간이다.
+Here, `J` represents impulse, `A` represents the surface area of the container, and `delta_t` represents the measurement interval.
 
-저온 조건에서는 실제 기체의 액화 현상을 단순화하여 구현하였다. 임계온도 이하에서 기체 분자끼리 충돌하면 일정 확률로 액화되도록 하였고, 액화된 분자는 cyan 색으로 바뀌며 중력과 damping의 영향을 받게 하였다. 그 결과 액화된 분자는 바닥 쪽으로 모이고, 벽 충돌에 거의 기여하지 않게 된다.
+The error percentage is calculated as:
 
-따라서 고온에서는 `P_ideal`과 `P_real`이 비교적 비슷하지만, 저온에서는 액화된 분자가 증가하면서 `P_real`이 감소하고 오차율이 커지는 경향을 확인할 수 있다.
+```text
+Error = abs(P_ideal - P_real) / P_ideal * 100
+```
 
-## 4. 개인 평가
+## Liquefaction Model
 
-이번 탐구에서 가장 중요하게 생각한 점은 화학 개념을 코드와 데이터로 연결하는 것이었다. 실제 기체의 모든 성질을 완벽하게 구현하기는 어렵기 때문에, 고등학교 탐구 수준에서 이해 가능한 단순 모델을 만들었다.
+The simulation uses a simplified liquefaction model. Below a critical temperature, gas particles can convert into a liquid-like state after collisions with other particles. Liquefied particles are visually distinguished and contribute less to wall-collision pressure.
 
-특히 충격량을 이용해 압력을 근사하고, 저온에서 액화 분자가 증가하도록 만든 부분이 가장 어려웠다. 하지만 이 과정을 통해 이상기체 상태방정식이 어떤 조건에서 잘 성립하고, 실제 기체에서는 왜 차이가 생기는지 더 잘 이해할 수 있었다.
+This simplified model does not attempt to reproduce all molecular interactions. Instead, it is designed to show the conceptual reason why real gases deviate from the ideal gas law at low temperature.
 
-## 5. 후속 탐구
+## Expected Result
 
-후속 탐구로는 반데르발스 방정식을 적용해 보고 싶다. 반데르발스 방정식은 분자 자체의 부피와 분자 간 인력을 고려하므로, 실제 기체를 이상기체식보다 더 잘 설명할 수 있다.
+At high temperature, most particles remain in the gas phase and collide actively with the walls. In this condition, the simulated real pressure is expected to remain closer to the ideal pressure.
 
-또한 산소, 질소, 이산화탄소처럼 기체 종류별로 임계온도를 다르게 설정하면 실제 기체의 성질을 더 구체적으로 비교할 수 있을 것이다.
+At low temperature, more particles enter the simplified liquid state. As fewer gas-like particles collide with the walls, the real pressure decreases relative to the ideal pressure, and the error percentage increases.
+
+## Limitations
+
+This simulation is an educational model. It does not calculate detailed intermolecular forces or use a full thermodynamic phase-transition model. The pressure values are best interpreted as comparative simulation data rather than exact real-world pressure measurements.
+
+Future improvements could include:
+
+- comparison with the van der Waals equation
+- gas-specific critical temperature values
+- more detailed intermolecular force modeling
+- automated graph generation from CSV output
 

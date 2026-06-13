@@ -1,53 +1,42 @@
-# Ideal Gas vs Real Gas Liquefaction Simulation
+# Ideal Gas and Real Gas Liquefaction Simulation
 
-This repository summarizes a Unity 3D gas particle motion simulation created for a high school Chemistry II research presentation.
+This repository documents a Unity-based gas particle simulation designed to compare ideal gas behavior with simplified real-gas liquefaction behavior.
 
-This is a public version of the project. The full Unity project is not included, but several selected C# scripts and public explanation materials are provided.
+The project focuses on the relationship between temperature, molecular motion, pressure, and liquefaction. It is intended as a public research summary rather than a full source-code release.
 
-## Research Topic
+## Overview
 
-This project compares the ideal gas law, `PV = nRT`, with the low-temperature liquefaction behavior of a real gas using a Unity 3D gas particle simulation.
+The simulation models gas particles moving inside a closed 3D container. The ideal pressure is calculated using the ideal gas law, while the real pressure is approximated from particle-wall collision impulse.
 
-## Key Concepts
+At high temperature, most particles remain in the gas phase and the simulated pressure trend is closer to the ideal gas model. At low temperature, some particles undergo simplified liquefaction, reducing their contribution to wall collisions and increasing the difference between ideal and real pressure.
 
-The simulation is based on three main relationships.
+## Core Model
+
+The simulation is organized around four main relationships.
 
 ```text
 v(T) = v0 * sqrt(T / T0)
 ```
 
-The representative speed of gas particles is modeled as proportional to `sqrt(T)`.
+Particle speed is modeled as proportional to the square root of absolute temperature.
 
 ```text
 P_ideal = nRT / V
 ```
 
-The ideal gas pressure is calculated from the ideal gas law.
+The ideal pressure is calculated from the ideal gas equation.
 
 ```text
 P_real ~= sum(J) / (A * delta_t)
 ```
 
-The real pressure is approximated by accumulating the impulse `J` transferred when particles collide with the container walls, then dividing by the surface area `A` and measurement time `delta_t`.
+The real pressure is approximated from the total impulse transferred to the container walls.
 
-## Recommended Function Forms
+```text
+Error = abs(P_ideal - P_real) / P_ideal * 100
+```
 
-For the report and presentation, simple functions with clear independent and dependent variables are easier to explain than overly complicated formulas.
-
-| Purpose | Recommended form | Meaning |
-|---|---|---|
-| Temperature-speed relationship | `v(T)=v0*sqrt(T/T0)` | Particle speed increases as temperature increases |
-| Ideal gas pressure | `P_ideal(T,V)=nRT/V` | Pressure increases with temperature and decreases with volume |
-| Real pressure approximation | `P_real~=sum(J)/(A*delta_t)` | Real pressure is approximated from wall-collision impulse |
-| Error rate | `Error=abs(P_ideal-P_real)/P_ideal*100` | Difference between ideal gas behavior and real gas behavior |
-
-For the final report, graphs made from CSV data are more convincing than formulas alone.
-
-Recommended graphs:
-
-1. Compare `P_ideal` and `P_real` over `time`
-2. Plot `error_percent` over `time`
-3. Plot `liquid_count` over `time`
+The error percentage is used to compare ideal-gas prediction with the simulated real-gas behavior.
 
 ## Repository Structure
 
@@ -57,7 +46,6 @@ Recommended graphs:
 +-- docs/
 |   +-- report_public.md
 +-- src/
-|   +-- GasParticle.cs
 |   +-- WallController.cs
 |   +-- GasManagerPressureExcerpt.cs
 +-- data/
@@ -67,56 +55,67 @@ Recommended graphs:
         +-- README.md
 ```
 
-## Included C# Files
+## Included Source Files
 
-The `src/` folder contains selected scripts used to explain the simulation logic.
+Only selected, review-friendly C# files are included.
 
-| File | Description |
+| File | Purpose |
 |---|---|
-| `GasParticle.cs` | Controls particle speed, wall collisions, and simplified liquefaction behavior |
-| `WallController.cs` | Controls the six walls of the 3D container and volume changes |
-| `GasManagerPressureExcerpt.cs` | Public excerpt showing the pressure and error calculations |
+| `WallController.cs` | Shows how the six container walls are resized and positioned |
+| `GasManagerPressureExcerpt.cs` | Shows the pressure and error-rate calculations used in the model |
 
-The full Unity project and all local generated files are intentionally excluded.
+Particle behavior and full scene-management logic are intentionally excluded from this public repository.
 
-## CSV Data Format
+## CSV Output Format
+
+The experiment records data in the following CSV format:
 
 ```csv
 time,temperature,volume,p_ideal,p_real,error_percent,liquid_count
 ```
 
-Column descriptions:
-
-| Column | Meaning |
+| Column | Description |
 |---|---|
-| `time` | Elapsed experiment time |
-| `temperature` | Current temperature |
+| `time` | Elapsed simulation time |
+| `temperature` | Current simulation temperature |
 | `volume` | Container volume |
-| `p_ideal` | Pressure calculated from the ideal gas law |
-| `p_real` | Real pressure approximated from wall-collision impulse |
-| `error_percent` | Error rate between ideal and real pressure |
-| `liquid_count` | Number of liquefied particles |
+| `p_ideal` | Pressure calculated from the ideal gas equation |
+| `p_real` | Pressure approximated from wall-collision impulse |
+| `error_percent` | Difference between ideal and real pressure |
+| `liquid_count` | Number of particles converted to the simplified liquid state |
 
-## Screenshots to Include
+## Suggested Graphs
 
-Screenshots should be captured directly from the Unity simulation and placed in `assets/screenshots/`.
+For analysis, the CSV data can be opened in Excel, Google Sheets, or another plotting tool.
 
-Recommended screenshots:
+Recommended graphs:
 
-1. Unity Hierarchy view
-2. High-temperature simulation view
-3. Low-temperature liquefaction view
-4. CSV file or pressure comparison graph
+1. `P_ideal` and `P_real` over time
+2. `error_percent` over time
+3. `liquid_count` over time
 
-For more details, see [assets/screenshots/README.md](assets/screenshots/README.md).
+These graphs help show how low-temperature liquefaction increases the gap between the ideal-gas prediction and the simulated real-gas pressure.
 
-## Public Scope
+## Screenshots
 
-This repository does not include:
+Suggested screenshots are listed in [assets/screenshots/README.md](assets/screenshots/README.md).
 
-- The full Unity project
-- Unity `Library`, `Temp`, or `Logs` cache files
-- Personal local file paths
-- Generated build files
+Recommended visuals:
 
-Only selected public scripts, research explanations, CSV examples, and screenshot guides are included.
+1. Unity Hierarchy
+2. High-temperature simulation state
+3. Low-temperature liquefaction state
+4. Pressure comparison graph from CSV data
+
+## Public Release Scope
+
+This public repository excludes:
+
+- Full Unity project files
+- Unity `Library`, `Temp`, and `Logs` folders
+- Local machine paths
+- Build artifacts
+- Full particle-behavior implementation
+
+The repository is intended to present the research structure, selected implementation excerpts, and analysis workflow in a clean public format.
+
