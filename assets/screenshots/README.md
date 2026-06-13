@@ -1,8 +1,8 @@
 # Screenshot Guide
 
-보고서와 발표 자료에 넣을 이미지는 직접 Unity 실행 화면을 캡처해서 이 폴더에 넣으면 됩니다.
+Use this folder for screenshots captured from the Unity simulation.
 
-## 추천 파일명
+## Recommended File Names
 
 ```text
 01_hierarchy.png
@@ -11,9 +11,9 @@
 04_pressure_graph.png
 ```
 
-## 사진 1. Unity Hierarchy
+## Screenshot 1. Unity Hierarchy
 
-캡처할 내용:
+Capture the Unity Hierarchy window showing these objects:
 
 - `ContainerWalls`
 - `GasManager`
@@ -21,50 +21,52 @@
 - `Canvas`
 - `Main Camera`
 
-캡션 예시:
+Suggested caption:
 
 ```text
-그림 1. 시뮬레이션 장면의 Unity Hierarchy 구조
+Figure 1. Unity Hierarchy structure of the gas particle simulation scene
 ```
 
-## 사진 2. 고온 조건
+## Screenshot 2. High-Temperature Condition
 
-조건:
+Recommended condition:
 
-- Temperature Slider: 700~800 K
-- 주황색 기체 분자가 활발히 움직이는 장면
-- 액화 분자가 거의 없는 장면
+- Temperature Slider: 700 K to 800 K
+- Orange gas particles moving actively
+- Few or no liquefied particles
 
-캡션 예시:
+Suggested caption:
 
 ```text
-그림 2. 고온 조건에서 활발하게 운동하는 기체 분자
+Figure 2. Gas particles moving actively under a high-temperature condition
 ```
 
-## 사진 3. 저온 액화 조건
+## Screenshot 3. Low-Temperature Liquefaction Condition
 
-조건:
+Recommended condition:
 
-- Temperature Slider: 100~150 K
-- cyan 색 액화 분자가 바닥에 모이는 장면
+- Temperature Slider: 100 K to 150 K
+- Cyan liquefied particles gathered near the bottom of the container
 
-캡션 예시:
+Suggested caption:
 
 ```text
-그림 3. 저온 조건에서 액화되어 바닥에 모인 분자
+Figure 3. Liquefied particles gathered near the bottom under a low-temperature condition
 ```
 
-## 사진 4. CSV 그래프
+## Screenshot 4. CSV Graph
 
-Excel 또는 Google Sheets에서 CSV를 열고 다음 그래프를 만든다.
+Open the CSV file in Excel or Google Sheets and create a line graph.
 
-- x축: `time`
-- y축: `p_ideal`, `p_real`
-- 그래프 종류: 선그래프
+Recommended graph:
 
-캡션 예시:
+- x-axis: `time`
+- y-axis: `p_ideal`, `p_real`
+- chart type: line graph
+
+Suggested caption:
 
 ```text
-그림 4. 온도 변화에 따른 이상기체 압력과 실제 압력의 비교
+Figure 4. Comparison between ideal gas pressure and real pressure over time
 ```
 
